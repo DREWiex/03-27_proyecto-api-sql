@@ -9,7 +9,10 @@ const entries = {
     INNER JOIN authors AS a
     ON e.id_author=a.id_author
     WHERE a.email=$1
-    ORDER BY e.title`
+    ORDER BY e.title`,
+    queryAddEntry:`
+    INSERT INTO entries(title,content,id_author,category)
+    VALUES ($1, $2, (SELECT id_author FROM authors WHERE email=$3), $4)`,
 };
 
 const authors = {

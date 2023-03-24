@@ -69,13 +69,39 @@ const modelGetEntriesByEmail = async (email) => {
 }; //!FUNC-MODELGETENTRIESBYEMAIL
 
 
-//* OBTENER ENTRADA POR ID
-
-
 //* CREAR UNA ENTRADA
+const modelAddEntry = async (datos) => {
+
+    let client, result;
+
+    const {title, content, email, category} = datos;
+
+    try {
+
+        client = await pool.connect();
+
+        const data = await client.query(entries.queryAddEntry, [title, content, email, category]);
+
+        result = data;
+        
+    } catch (error) {
+
+        console.log(error);
+        throw error;
+        
+    } finally {
+
+        client.release();
+
+    };
+
+    return result;
+
+}; //!FUNC-MODELADDENTRY
 
 
 //* ACTUALIZAR UNA ENTRADA
+
 
 
 //* ELIMINAR UNA ENTRADA
@@ -84,5 +110,6 @@ const modelGetEntriesByEmail = async (email) => {
 
 module.exports = {
     modelGetEntries,
-    modelGetEntriesByEmail
+    modelGetEntriesByEmail,
+    modelAddEntry
 };

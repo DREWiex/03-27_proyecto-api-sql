@@ -4,7 +4,6 @@ const router = express.Router();
 const {
     getEntries, 
     getEntriesByEmail,
-    getEntryByID,
     addEntries,
     updateEntries,
     deleteEntries
@@ -16,9 +15,6 @@ router.get('/', getEntries);
 
 //* GET ENTRIES BY E-MAIL
 router.get('/:email', getEntriesByEmail);
-
-//* GET ENTRY BY ID
-router.get('/:id', getEntryByID);
 
 //* ADD ENTRY
 router.post('/', addEntries);

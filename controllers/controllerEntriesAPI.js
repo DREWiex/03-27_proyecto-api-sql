@@ -1,7 +1,10 @@
 const {
     modelGetEntries,
-    modelGetEntriesByEmail
+    modelGetEntriesByEmail,
+    modelAddEntry,
 } = require('../models/modelEntries');
+
+const {modelSearchAuthorByEmail} = require('../models/modelAuthors');
 
 
 
@@ -75,16 +78,40 @@ const getEntriesByEmail = async (req, res) => {
 }; //!FUNC-GETENTRIESBYEMAIL
 
 
-const getEntryByID = async (req, res) => {
-
-
-
-}; //!FUNC-GETENTRYBYID
-
-
 const addEntries = async (req, res) => {
 
+    const email = req.body.email;
 
+    try {
+
+        const searchEmail = await modelSearchAuthorByEmail(email);
+
+        if(searchEmail){
+
+            await modelAddEntry(req.body);
+
+            return res.status(201).json({
+                ok: true,
+                msg: 'Entrada creada con éxito.'
+            });
+
+        } else {
+
+            return res.status(400).json({
+                ok: false,
+                msg: `ERROR: el e-mail '${email}' no existe en la base de datos. Solo los autores registrados pueden crear nuevas entradas.`
+            });
+
+        };
+        
+    } catch (error) {
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'ERROR: contacte con el administrador.',
+            error
+        });    
+    };
     
 }; //!FUNC-ADDENTRIES
 
@@ -107,7 +134,6 @@ const deleteEntries = async (req, res) => {
 module.exports = {
     getEntries,
     getEntriesByEmail,
-    getEntryByID,
     addEntries,
     updateEntries,
     deleteEntries
