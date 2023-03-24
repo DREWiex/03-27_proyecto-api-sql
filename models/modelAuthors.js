@@ -169,7 +169,7 @@ const modelSearchAuthorByID = async (id) => {
 
         client = await pool.connect();
 
-        const {rowCount} = await client.query(authors.queryGetAuthorByID, [id]);
+        const {rowCount} = await client.query(authors.querySearchAuthorByID, [id]);
 
         rowCount == 0 ? result = false : result = true;
         
@@ -198,7 +198,7 @@ const modelSearchAuthorByEmail = async (email) => {
 
         client = await pool.connect();
 
-        const {rowCount} = await client.query(authors.querySearchByEmail, [email]);
+        const {rowCount} = await client.query(authors.querySearchAuthorByEmail, [email]);
 
         rowCount == 0 ? result = false : result = true;
         

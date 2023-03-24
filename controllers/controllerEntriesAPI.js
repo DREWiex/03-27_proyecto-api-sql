@@ -42,28 +42,27 @@ const getEntries = async (req, res) => {
 
 const getEntriesByEmail = async (req, res) => {
 
-    let data;
-    let email = req.params.email;
+    const email = req.params.email;
 
-    try{
+    try {
 
-    if(email){
+        const data = await modelGetEntriesByEmail(email);
 
-        data = await modelGetEntriesByEmail(email);
+        if(data){
 
-        res.status(200).json({
-            ok: true,
-            data: data.rows
-        });
+            res.status(200).json({
+                ok: true,
+                data
+            });
 
-    }else{
+        } else {
 
-        res.status(400).json({
-            ok: false,
-            msg: 'ERROR: no se ha podido obtener la entry.'
-        });
+            res.status(400).json({
+                ok: false,
+                msg: `ERROR: no se han encontrado entradas con el email: ${email}.`
+            });
 
-    };
+        };
 
     } catch (error) {
 
@@ -71,7 +70,6 @@ const getEntriesByEmail = async (req, res) => {
             ok: false,
             msg: 'ERROR: contacte con el administrador.'
         });
-
     };
 
 }; //!FUNC-GETENTRIESBYEMAIL

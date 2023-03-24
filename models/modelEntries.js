@@ -51,7 +51,7 @@ const modelGetEntriesByEmail = async (email) => {
 
         const data = await client.query(entries.queryGetEntriesByEmail, [email]);
 
-        result = data;
+        data.rowCount != 0 ? result = data.rows : result = false;
         
     } catch (error) {
 
@@ -60,16 +60,16 @@ const modelGetEntriesByEmail = async (email) => {
         
     } finally {
 
-        client.release() // mata el servidor
+        client.release();
 
     };
 
     return result;
 
-};
+}; //!FUNC-MODELGETENTRIESBYEMAIL
 
 
-//* OBTENER ENTRADA POD ID
+//* OBTENER ENTRADA POR ID
 
 
 //* CREAR UNA ENTRADA
@@ -79,6 +79,7 @@ const modelGetEntriesByEmail = async (email) => {
 
 
 //* ELIMINAR UNA ENTRADA
+
 
 
 module.exports = {

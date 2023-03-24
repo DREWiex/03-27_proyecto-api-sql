@@ -8,7 +8,7 @@ const entries = {
     FROM entries AS e
     INNER JOIN authors AS a
     ON e.id_author=a.id_author
-    WHERE a.email=$1 //! así evitamos las inyecciones de sql (hackeos?)
+    WHERE a.email=$1
     ORDER BY e.title`
 };
 
@@ -22,14 +22,6 @@ const authors = {
     FROM authors AS a
     WHERE a.email=$1
     ORDER BY a.id_author`,
-    queryGetAuthorByID:`
-    SELECT id_author
-    FROM authors
-    WHERE id_author=$1`,
-    querySearchByEmail:`
-    SELECT email
-    FROM authors
-    WHERE email=$1`,
     queryAddAuthor:`
     INSERT INTO authors(name,surname,email,image)
     VALUES ($1, $2, $3, $4)`,
@@ -39,7 +31,15 @@ const authors = {
     WHERE id_author=$5`,
     queryDeleteAuthor:`
     DELETE FROM authors
-    WHERE id_author=$1`
+    WHERE id_author=$1`,
+    querySearchAuthorByID:`
+    SELECT id_author
+    FROM authors
+    WHERE id_author=$1`,
+    querySearchAuthorByEmail:`
+    SELECT email
+    FROM authors
+    WHERE email=$1`
 };
 
 
