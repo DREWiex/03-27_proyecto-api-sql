@@ -6,7 +6,7 @@ const pool = new Pool({
     host: 'localhost',
     user: 'postgres',
     database: 'blog',
-    password: "admin"
+    password: 'admin'
 });
 
 
@@ -128,7 +128,7 @@ const modelUpdateAuthor = async (datos, id) => {
 
     return result;
 
-}; //!FUNC-UPDATEONEAUTHOR
+}; //!FUNC-MODELUPDATEAUTHOR
 
 
 //* ELIMINAR AUTOR
@@ -169,7 +169,7 @@ const modelSearchAuthorByID = async (id) => {
 
         client = await pool.connect();
 
-        const {rowCount} = await client.query(authors.queryGetAuthorByID, [id]);
+        const {rowCount} = await client.query(authors.querySearchAuthorByID, [id]);
 
         rowCount == 0 ? result = false : result = true;
         
@@ -186,7 +186,7 @@ const modelSearchAuthorByID = async (id) => {
 
     return result;
 
-}; //!FUNC-MODERLGETAUTHORBYID
+}; //!FUNC-MODELSEARCHAUTHORBYID
 
 
 //* BUSCAR AUTOR POR E-MAIL
@@ -198,7 +198,7 @@ const modelSearchAuthorByEmail = async (email) => {
 
         client = await pool.connect();
 
-        const {rowCount} = await client.query(authors.querySearchByEmail, [email]);
+        const {rowCount} = await client.query(authors.querySearchAuthorByEmail, [email]);
 
         rowCount == 0 ? result = false : result = true;
         
