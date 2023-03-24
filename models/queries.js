@@ -13,6 +13,17 @@ const entries = {
     queryAddEntry:`
     INSERT INTO entries(title,content,id_author,category)
     VALUES ($1, $2, (SELECT id_author FROM authors WHERE email=$3), $4)`,
+    queryUpdateEntry:`
+    UPDATE entries
+    SET title=$1, content=$2, category=$3
+    WHERE id_entry=$4`,
+    queryDeleteEntry:`
+    DELETE FROM entries
+    WHERE id_entry=$1`,
+    querySearchEntryByID:`
+    SELECT id_entry
+    FROM entries
+    WHERE id_entry=$1`
 };
 
 const authors = {

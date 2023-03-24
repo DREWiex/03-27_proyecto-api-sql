@@ -2,13 +2,15 @@ const {
     modelGetEntries,
     modelGetEntriesByEmail,
     modelAddEntry,
+    modelUpdateEntry,
+    modelDeleteEntry,
+    modelSearchEntryByID
 } = require('../models/modelEntries');
 
 const {modelSearchAuthorByEmail} = require('../models/modelAuthors');
 
 
 
-//* obtener todas las entries
 const getEntries = async (req, res) => {
 
     try {
@@ -71,14 +73,15 @@ const getEntriesByEmail = async (req, res) => {
 
         res.status(500).json({
             ok: false,
-            msg: 'ERROR: contacte con el administrador.'
+            msg: 'ERROR: contacte con el administrador.',
+            error
         });
     };
 
 }; //!FUNC-GETENTRIESBYEMAIL
 
 
-const addEntries = async (req, res) => {
+const addEntry = async (req, res) => {
 
     const email = req.body.email;
 
@@ -113,28 +116,89 @@ const addEntries = async (req, res) => {
         });    
     };
     
-}; //!FUNC-ADDENTRIES
+}; //!FUNC-ADDENTRY
 
 
-const updateEntries = async (req, res) => {
+const updateEntry = async (req, res) => {
 
+    const id = req.params.id;
 
+    try {
+
+        const searchEntry = await modelSearchEntryByID(id);
+
+        if(searchEntry){
+
+            await modelUpdateEntry(req.body, id);
+
+            return res.status(200).json({
+                ok: true,
+                msg: `La entrada con ID '${id}' se ha actualizado con éxito.`
+            });
+
+        } else {
+
+            return res.status(400).json({
+                ok: false,
+                msg: `No existe ninguna entrada con el ID '${id}' en la base de datos.`
+            });
+
+        };
+
+    } catch (error) {
+
+        return res.status(500).json({
+            ok: false,
+            msg: 'ERROR: contacte con el administrador.',
+            error
+        });  
+    };
     
-}; //!FUNC-UPDATEENTRIES
+}; //!FUNC-UPDATEENTRY
 
 
-const deleteEntries = async (req, res) => {
+const deleteEntry = async (req, res) => {
 
+    const id = req.params.id;
 
+    try {
+        
+        const searchEntry = await modelSearchEntryByID(id);
+
+        if(searchEntry){
+
+            await modelDeleteEntry(id);
+
+            return res.status(200).json({
+                ok: true,
+                msg: `La entrada con ID '${id}' se ha eliminado satisfactoriamente.`
+            });
+
+        } else {
+
+            return res.status(400).json({
+                ok: false,
+                msg: `No se ha encontrado ninguna entrada con ID '${id}' en la base de datos.`
+            });
+        };
+
+    } catch (error) {
+        
+        return res.status(500).json({
+            ok: false,
+            msg: 'ERROR: contacte con el administrador',
+            error
+        });
+    };
     
-}; //!FUNC-DELETEENTRIES
+}; //!FUNC-DELETEENTRY
 
 
 
 module.exports = {
     getEntries,
     getEntriesByEmail,
-    addEntries,
-    updateEntries,
-    deleteEntries
+    addEntry,
+    updateEntry,
+    deleteEntry
 };

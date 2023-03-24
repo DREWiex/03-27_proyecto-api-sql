@@ -4,9 +4,9 @@ const router = express.Router();
 const {
     getEntries, 
     getEntriesByEmail,
-    addEntries,
-    updateEntries,
-    deleteEntries
+    addEntry,
+    updateEntry,
+    deleteEntry
 } = require('../controllers/controllerEntriesAPI')
 
 
@@ -17,13 +17,13 @@ router.get('/', getEntries);
 router.get('/:email', getEntriesByEmail);
 
 //* ADD ENTRY
-router.post('/', addEntries);
+router.post('/', addEntry);
 
 //* UPDATE ENTRY
-router.put('/:id', updateEntries);
+router.put('/:id', updateEntry);
 
 //* ELIMINAR ENTRY
-router.delete('/:id', deleteEntries);
+router.delete('/:id', deleteEntry);
 
 
 module.exports = router;

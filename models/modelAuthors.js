@@ -6,7 +6,7 @@ const pool = new Pool({
     host: 'localhost',
     user: 'postgres',
     database: 'blog',
-    password: "admin"
+    password: 'admin'
 });
 
 
@@ -128,7 +128,7 @@ const modelUpdateAuthor = async (datos, id) => {
 
     return result;
 
-}; //!FUNC-UPDATEONEAUTHOR
+}; //!FUNC-MODELUPDATEAUTHOR
 
 
 //* ELIMINAR AUTOR
@@ -186,7 +186,7 @@ const modelSearchAuthorByID = async (id) => {
 
     return result;
 
-}; //!FUNC-MODERLGETAUTHORBYID
+}; //!FUNC-MODELSEARCHAUTHORBYID
 
 
 //* BUSCAR AUTOR POR E-MAIL
