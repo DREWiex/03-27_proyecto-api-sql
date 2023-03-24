@@ -19,9 +19,9 @@ const modelGetEntries = async () => {
 
         client = await pool.connect();
 
-        const data = await client.query(entries.queryGetEntries);
+        const {rows} = await client.query(entries.queryGetEntries);
 
-        result = data;
+        result = rows;
         
     } catch (error) {
 

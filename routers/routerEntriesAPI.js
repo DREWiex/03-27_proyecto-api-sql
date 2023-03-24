@@ -8,7 +8,7 @@ const {
     addEntries,
     updateEntries,
     deleteEntries
-} = require('../controllers/apiEntriesController')
+} = require('../controllers/controllerEntriesAPI')
 
 
 //* GET ENTRIES

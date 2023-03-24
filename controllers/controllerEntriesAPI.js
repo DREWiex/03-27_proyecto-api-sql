@@ -1,6 +1,6 @@
 const {
-    getAllEntries,
-    getAllEntriesByEmail
+    modelGetEntries,
+    modelGetEntriesByEmail
 } = require('../models/modelEntries');
 
 
@@ -10,20 +10,20 @@ const getEntries = async (req, res) => {
 
     try {
 
-        const data = await getAllEntries();
+        const data = await modelGetEntries();
 
         if(data){
 
             res.status(200).json({
                 ok: true,
-                data: data.rows
+                data
             });
 
         } else {
 
             res.status(400).json({
                 ok: false,
-                msg: 'ERROR: no se han podido obtener todas las entries.'
+                msg: 'ERROR: no hay entradas guardadas en la base de datos.'
             });
 
         };
@@ -32,9 +32,9 @@ const getEntries = async (req, res) => {
         
         res.status(500).json({
             ok: false,
-            msg: 'ERROR: contacte con el administrador.'
+            msg: 'ERROR: contacte con el administrador.',
+            error
         });
-
     };
 
 }; //!FUNC-GETENTRIES
@@ -49,7 +49,7 @@ const getEntriesByEmail = async (req, res) => {
 
     if(email){
 
-        data = await getAllEntriesByEmail(email);
+        data = await modelGetEntriesByEmail(email);
 
         res.status(200).json({
             ok: true,
