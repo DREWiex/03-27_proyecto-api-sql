@@ -24,5 +24,7 @@ app.use((req, res, next) => {
 
 
 app.listen(port, () => {
+
     console.log(`Servidor a la escucha del puerto: ${port}`);
+    
 });
